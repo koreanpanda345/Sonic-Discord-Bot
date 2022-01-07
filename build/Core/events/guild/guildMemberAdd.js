@@ -18,6 +18,7 @@ const skia_1 = require("canvas-constructor/skia");
 const GuildSettingsSchema_1 = __importDefault(require("../../../Data/schemas/GuildSettingsSchema"));
 (0, helpers_1.createBotEvent)({
     name: 'guildMemberAdd',
+    disabled: true,
     invoke: (member) => __awaiter(void 0, void 0, void 0, function* () {
         const link = member.user.displayAvatarURL();
         function join() {

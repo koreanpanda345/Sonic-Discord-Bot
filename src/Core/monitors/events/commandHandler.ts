@@ -1,4 +1,5 @@
 import { GuildMember, Message } from 'discord.js';
+import CommandSchema from '../../../Data/schemas/CommandSchema';
 import { cache } from '../../constants/instances';
 import { IBotCommand } from '../../interfaces/IBotCommand';
 import { createBotMonitor } from '../../utils/helpers';
@@ -34,6 +35,15 @@ function validatePermissions(command: IBotCommand, message: Message) {
 	return true;
 }
 
+async function getCommandData(name: string) {
+	let command = await CommandSchema.findOne({ name });
+
+	if (!command) command = await CommandSchema.findOne().where('aliases').all([name]);
+	console.debug(command);
+	if (!command) return false;
+	else return command;
+}
+
 createBotMonitor({
 	name: 'command_handler',
 	invoke: async (message: Message) => {
@@ -50,7 +60,11 @@ createBotMonitor({
 		const args = message.content.slice(prefix!.length).trim().split(' ');
 
 		const commandName = args.shift()?.toLowerCase();
-		const command = parseCommand(commandName as string);
+		const data = await getCommandData(commandName as string);
+
+		if (!data) return;
+
+		const command = parseCommand(data!.name);
 		// Since undefined and null are both falsy, it will return false, if the command doesn't exist.
 		if (!command) return;
 		const validated = validatePermissions(command, message);

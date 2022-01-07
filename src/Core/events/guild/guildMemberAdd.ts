@@ -5,7 +5,7 @@ import { Canvas, resolveImage } from 'canvas-constructor/skia';
 import GuildSettingsSchema from '../../../Data/schemas/GuildSettingsSchema';
 createBotEvent({
 	name: 'guildMemberAdd',
-
+	disabled: true,
 	invoke: async (member: GuildMember) => {
 		const link = member.user.displayAvatarURL();
 

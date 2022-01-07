@@ -8,7 +8,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
+const CommandSchema_1 = __importDefault(require("../../../Data/schemas/CommandSchema"));
 const instances_1 = require("../../constants/instances");
 const helpers_1 = require("../../utils/helpers");
 function parsePrefix(guildId) {
@@ -40,6 +44,18 @@ function validatePermissions(command, message) {
     }
     return true;
 }
+function getCommandData(name) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let command = yield CommandSchema_1.default.findOne({ name });
+        if (!command)
+            command = yield CommandSchema_1.default.findOne().where('aliases').all([name]);
+        console.debug(command);
+        if (!command)
+            return false;
+        else
+            return command;
+    });
+}
 (0, helpers_1.createBotMonitor)({
     name: 'command_handler',
     invoke: (message) => __awaiter(void 0, void 0, void 0, function* () {
@@ -52,7 +68,10 @@ function validatePermissions(command, message) {
             return;
         const args = message.content.slice(prefix.length).trim().split(' ');
         const commandName = (_a = args.shift()) === null || _a === void 0 ? void 0 : _a.toLowerCase();
-        const command = parseCommand(commandName);
+        const data = yield getCommandData(commandName);
+        if (!data)
+            return;
+        const command = parseCommand(data.name);
         // Since undefined and null are both falsy, it will return false, if the command doesn't exist.
         if (!command)
             return;
