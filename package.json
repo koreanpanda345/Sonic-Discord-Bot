@@ -1,0 +1,33 @@
+{
+  "name": "Sonic-Discord-Bot",
+  "version": "1.0.0",
+  "description": "A rewritten version of Sonic",
+  "main": "build/index.js",
+  "author": "Cody Spratford <36426888+koreanpanda345@users.noreply.github.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "yarn lint & yarn build & node .",
+    "lint": "eslint --quiet --fix",
+    "build": "tsc"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.8",
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
+    "eslint": "^8.6.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "canvas-constructor": "^5.0.1",
+    "discord.js": "^13.5.0",
+    "dotenv": "^10.0.0",
+    "moment": "^2.29.1",
+    "moment-duration-format": "^2.3.2",
+    "mongoose": "^6.1.5",
+    "node-superfetch": "^0.2.3",
+    "skia-canvas": "^0.9.27"
+  }
+}
