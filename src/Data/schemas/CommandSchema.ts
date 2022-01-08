@@ -7,6 +7,7 @@ export interface ICommandSchema extends Document {
 	usages: string[];
 	group: string;
 	enabled: boolean;
+	invoke: string;
 }
 
 const schema = new Schema({
@@ -16,6 +17,7 @@ const schema = new Schema({
 	usages: [String],
 	group: String,
 	enabled: Boolean,
+	invoke: String,
 });
 
 export default model<ICommandSchema>('Commands', schema);

@@ -36,7 +36,6 @@ const helpers_1 = require("../../utils/helpers");
         if (typeof user.balance === 'undefined')
             user.balance = 0;
         yield user.save();
-        console.debug(user);
         const commandHandler = instances_1.cache.monitors.get('command_handler');
         yield (commandHandler === null || commandHandler === void 0 ? void 0 : commandHandler.invoke(message));
     }),

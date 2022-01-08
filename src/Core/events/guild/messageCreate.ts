@@ -25,8 +25,6 @@ createBotEvent({
 
 		await user.save();
 
-		console.debug(user);
-
 		const commandHandler = cache.monitors.get('command_handler');
 		await commandHandler?.invoke(message);
 	},
