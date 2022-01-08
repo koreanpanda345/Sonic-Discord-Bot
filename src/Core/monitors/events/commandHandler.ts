@@ -69,6 +69,22 @@ createBotMonitor({
 		const data = await getCommandData(commandName as string);
 
 		if (!data) return;
+
+		if (!data.enabled) {
+			const embed = new MessageEmbed();
+			embed.setAuthor({
+				name: client.user?.username as string,
+				iconURL: sonic_icon,
+			});
+			embed.setColor('ORANGE');
+			embed.setTitle('This command is disabled!');
+			embed.setDescription(
+				`Command ${data.name} has been disabled either because it has problems, or it is under mainatance.`,
+			);
+
+			return message.reply({ embeds: [embed] });
+		}
+
 		const disabled = await getDisabledGroups();
 		if (disabled.includes(data!.group.toLowerCase())) {
 			const embed = new MessageEmbed();

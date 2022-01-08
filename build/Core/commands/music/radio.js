@@ -105,8 +105,6 @@ const helpers_1 = require("../../utils/helpers");
         embed.setAuthor({
             name: (_e = instances_1.client.user) === null || _e === void 0 ? void 0 : _e.username,
         });
-        console.log(num);
-        console.log(stations);
         embed.setThumbnail((_f = instances_1.client.user) === null || _f === void 0 ? void 0 : _f.displayAvatarURL());
         embed.setTitle('📻 **Playing Radio**');
         embed.setColor('RANDOM');

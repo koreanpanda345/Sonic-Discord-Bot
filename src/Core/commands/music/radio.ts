@@ -103,8 +103,6 @@ createBotCommand({
 		embed.setAuthor({
 			name: client.user?.username as string,
 		});
-		console.log(num);
-		console.log(stations);
 		embed.setThumbnail(client.user?.displayAvatarURL() as string);
 		embed.setTitle('📻 **Playing Radio**');
 		embed.setColor('RANDOM');

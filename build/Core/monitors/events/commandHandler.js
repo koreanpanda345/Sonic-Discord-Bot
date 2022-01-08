@@ -67,7 +67,7 @@ function getDisabledGroups() {
 (0, helpers_1.createBotMonitor)({
     name: 'command_handler',
     invoke: (message) => __awaiter(void 0, void 0, void 0, function* () {
-        var _a, _b;
+        var _a, _b, _c;
         const prefix = parsePrefix(message.guildId);
         if (!message.content
             .toLowerCase()
@@ -80,11 +80,22 @@ function getDisabledGroups() {
         const data = yield getCommandData(commandName);
         if (!data)
             return;
+        if (!data.enabled) {
+            const embed = new discord_js_1.MessageEmbed();
+            embed.setAuthor({
+                name: (_b = instances_1.client.user) === null || _b === void 0 ? void 0 : _b.username,
+                iconURL: variables_1.sonic_icon,
+            });
+            embed.setColor('ORANGE');
+            embed.setTitle('This command is disabled!');
+            embed.setDescription(`Command ${data.name} has been disabled either because it has problems, or it is under mainatance.`);
+            return message.reply({ embeds: [embed] });
+        }
         const disabled = yield getDisabledGroups();
         if (disabled.includes(data.group.toLowerCase())) {
             const embed = new discord_js_1.MessageEmbed();
             embed.setAuthor({
-                name: (_b = instances_1.client.user) === null || _b === void 0 ? void 0 : _b.username,
+                name: (_c = instances_1.client.user) === null || _c === void 0 ? void 0 : _c.username,
                 iconURL: variables_1.sonic_icon,
             });
             embed.setColor('ORANGE');
