@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const UserDataSchema_1 = __importDefault(require("../../../Data/schemas/UserDataSchema"));
+const variables_1 = require("../../constants/variables");
 const helpers_1 = require("../../utils/helpers");
 (0, helpers_1.createBotCommand)({
     name: 'bubblepop',
@@ -28,7 +29,7 @@ const helpers_1 = require("../../utils/helpers");
             iconURL: 'https://i.imgur.com/xUoqBGf.png',
         });
         embed.setThumbnail('https://i.imgur.com/gVsqGsA.gif');
-        embed.setColor('#76d6ff');
+        embed.setColor(variables_1.default_color);
         embed.addField('Total Bubbles Popped:', `**${user === null || user === void 0 ? void 0 : user.bubble_pop}**`);
         embed.setDescription("You've popped a bubble!");
         message.reply({ embeds: [embed] });

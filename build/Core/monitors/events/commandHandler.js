@@ -12,8 +12,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+const discord_js_1 = require("discord.js");
+const CommandGroupSchema_1 = __importDefault(require("../../../Data/schemas/CommandGroupSchema"));
 const CommandSchema_1 = __importDefault(require("../../../Data/schemas/CommandSchema"));
 const instances_1 = require("../../constants/instances");
+const variables_1 = require("../../constants/variables");
 const helpers_1 = require("../../utils/helpers");
 function parsePrefix(guildId) {
     const prefix = process.env.DISCORD_BOT_PREFIX;
@@ -49,17 +52,22 @@ function getCommandData(name) {
         let command = yield CommandSchema_1.default.findOne({ name });
         if (!command)
             command = yield CommandSchema_1.default.findOne().where('aliases').all([name]);
-        console.debug(command);
         if (!command)
             return false;
         else
             return command;
     });
 }
+function getDisabledGroups() {
+    return __awaiter(this, void 0, void 0, function* () {
+        const groups = yield CommandGroupSchema_1.default.find({}).where('disabled').all([true]);
+        return groups.map((x) => x.name.toLowerCase());
+    });
+}
 (0, helpers_1.createBotMonitor)({
     name: 'command_handler',
     invoke: (message) => __awaiter(void 0, void 0, void 0, function* () {
-        var _a;
+        var _a, _b;
         const prefix = parsePrefix(message.guildId);
         if (!message.content
             .toLowerCase()
@@ -67,10 +75,23 @@ function getCommandData(name) {
             .startsWith(prefix))
             return;
         const args = message.content.slice(prefix.length).trim().split(' ');
+        yield getDisabledGroups();
         const commandName = (_a = args.shift()) === null || _a === void 0 ? void 0 : _a.toLowerCase();
         const data = yield getCommandData(commandName);
         if (!data)
             return;
+        const disabled = yield getDisabledGroups();
+        if (disabled.includes(data.group.toLowerCase())) {
+            const embed = new discord_js_1.MessageEmbed();
+            embed.setAuthor({
+                name: (_b = instances_1.client.user) === null || _b === void 0 ? void 0 : _b.username,
+                iconURL: variables_1.sonic_icon,
+            });
+            embed.setColor('ORANGE');
+            embed.setTitle('This command is disabled!');
+            embed.setDescription(`The command group \`${data.group}\` is currently disabled. Any command belonging to it is disabled either to prevent any further damage to the bot, or it is deprecated.`);
+            return message.reply({ embeds: [embed] });
+        }
         const command = parseCommand(data.name);
         // Since undefined and null are both falsy, it will return false, if the command doesn't exist.
         if (!command)

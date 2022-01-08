@@ -33,7 +33,9 @@ createBotCommand({
 			embed.setDescription(
 				`**${message.author.username}**, You caught » ${fish.symbol}. I bet it'd sell for around **$${worth}**`,
 			);
-
+			user!.fishy++;
+			user!.balance += worth;
+			await user?.save();
 			return message.channel.send({ embeds: [embed] });
 		} else if (args[0] === 'list' || args[0] === 'reward') {
 			const embed = new MessageEmbed();
@@ -93,13 +95,9 @@ createBotCommand({
 			embed.setDescription(`
 \`\`\`
 ${rarity_emoji.junk} Junk\t  :: max reward: ${rarity_reward.junk.max}, min reward: ${rarity_reward.junk.min}
-
 ${rarity_emoji.common} Common\t\t :: max reward: ${rarity_reward.common.max}, min reward: ${rarity_reward.common.min}
-
 ${rarity_emoji.uncommon} Uncommon  :: max reward: ${rarity_reward.uncommon.max}, min reward: ${rarity_reward.uncommon.min}
-
 ${rarity_emoji.rare} Rare\t  :: max reward: ${rarity_reward.rare.max}, min reward: ${rarity_reward.rare.min}
-
 ${rarity_emoji.legendary} Legendary :: max reward: ${rarity_reward.legendary.max}, min reward: ${rarity_reward.legendary.min}
 \`\`\`
 **All rewards are random from max/min**`);

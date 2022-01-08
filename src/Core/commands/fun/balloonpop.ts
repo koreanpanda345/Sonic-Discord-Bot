@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import UserDataSchema from '../../../Data/schemas/UserDataSchema';
+import { default_color, sonic_icon } from '../../constants/variables';
 import { createBotCommand } from '../../utils/helpers';
 
 createBotCommand({
@@ -13,9 +14,9 @@ createBotCommand({
 
 		const embed = new MessageEmbed();
 
-		embed.setAuthor('Balloon Pop 🎈', 'https://i.imgur.com/xUoqBGf.png');
+		embed.setAuthor('Balloon Pop 🎈', sonic_icon);
 		embed.setThumbnail('https://i.gifer.com/embedded/download/DGZO.gif');
-		embed.setColor('#76d6ff');
+		embed.setColor(default_color);
 		embed.addField('Total Balloons Popped:', `${user?.balloon_pop}`, true);
 		embed.setDescription("You've popped a Balloon!");
 

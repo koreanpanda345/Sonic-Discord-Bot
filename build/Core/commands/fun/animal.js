@@ -15,9 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const helpers_1 = require("../../utils/helpers");
 const node_superfetch_1 = __importDefault(require("node-superfetch"));
 const discord_js_1 = require("discord.js");
+const variables_1 = require("../../constants/variables");
 (0, helpers_1.createBotCommand)({
-    name: 'dog',
-    description: '',
+    name: 'animal',
+    description: 'Get a picture of an animal.',
+    group: 'fun',
     invoke: (message, args) => __awaiter(void 0, void 0, void 0, function* () {
         const descs = [
             'A big cutie!',
@@ -28,13 +30,28 @@ const discord_js_1 = require("discord.js");
             'if (this.isCute) {\n\tdie()\n}',
         ];
         const baseUrl = 'https://some-random-api.ml/';
-        const { body: data } = yield node_superfetch_1.default.get(`${baseUrl}animal/dog`);
+        const option = args.join(' ').slice(0);
+        const animals = ['bird', 'dog', 'cat', 'panda', 'fox', 'red panda', 'koala', 'raccoon', 'kangaroo'];
         const embed = new discord_js_1.MessageEmbed();
-        embed.setDescription(descs[Math.floor(Math.random() * descs.length)]);
-        embed.setColor('#76d6ff');
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        embed.setImage(data['image']);
+        embed.setColor(variables_1.default_color);
+        embed.setAuthor({
+            name: 'Animals 🐼',
+            iconURL: variables_1.sonic_icon,
+        });
+        if (option.length === 0) {
+            embed.setDescription(`Here are the animals that are at the zoo currently:\n• Dog\n• Cat\n• Panda\n• Fox\n• Red Panda\n• Koala\n• Raccoon\n• Kangaroo`);
+        }
+        else if (animals.includes(option.toLowerCase())) {
+            const { body: data } = yield node_superfetch_1.default.get(`${baseUrl}animal/${option.toLowerCase().replace(' ', '_')}`);
+            embed.setDescription(descs[Math.floor(Math.random() * descs.length)]);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            //@ts-ignore
+            embed.setImage(data['image']);
+        }
+        else {
+            embed.setDescription(`👀 Wait is this the zoo? Why don't I see \`${option}\`? Did I take the wrong path?`);
+            embed.setImage(variables_1.error_404_image);
+        }
         message.channel.send({ embeds: [embed] });
     }),
 });

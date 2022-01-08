@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
 const UserDataSchema_1 = __importDefault(require("../../../Data/schemas/UserDataSchema"));
+const variables_1 = require("../../constants/variables");
 const helpers_1 = require("../../utils/helpers");
 (0, helpers_1.createBotCommand)({
     name: 'balloonpop',
@@ -23,9 +24,9 @@ const helpers_1 = require("../../utils/helpers");
         user.balloon_pop++;
         yield user.save();
         const embed = new discord_js_1.MessageEmbed();
-        embed.setAuthor('Balloon Pop 🎈', 'https://i.imgur.com/xUoqBGf.png');
+        embed.setAuthor('Balloon Pop 🎈', variables_1.sonic_icon);
         embed.setThumbnail('https://i.gifer.com/embedded/download/DGZO.gif');
-        embed.setColor('#76d6ff');
+        embed.setColor(variables_1.default_color);
         embed.addField('Total Balloons Popped:', `${user === null || user === void 0 ? void 0 : user.balloon_pop}`, true);
         embed.setDescription("You've popped a Balloon!");
         message.reply({ embeds: [embed] });

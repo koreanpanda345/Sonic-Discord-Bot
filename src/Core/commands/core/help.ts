@@ -2,6 +2,7 @@ import { MessageEmbed } from 'discord.js';
 import CommandGroupSchema from '../../../Data/schemas/CommandGroupSchema';
 import CommandSchema from '../../../Data/schemas/CommandSchema';
 import { client } from '../../constants/instances';
+import { error_404_image } from '../../constants/variables';
 import { createBotCommand } from '../../utils/helpers';
 
 createBotCommand({
@@ -63,9 +64,7 @@ createBotCommand({
 				`There doesn't seem to be a command group called ${options}. Maybe you misspelt it, or something.\n` +
 					`But since you are here, watch me beat this game.`,
 			);
-			embed.setImage(
-				'https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/Dino_non-birthday_version.gif',
-			);
+			embed.setImage(error_404_image);
 		}
 		message.channel.send({ embeds: [embed] });
 	},

@@ -1,5 +1,6 @@
 import { MessageEmbed } from 'discord.js';
 import UserDataSchema from '../../../Data/schemas/UserDataSchema';
+import { default_color } from '../../constants/variables';
 import { createBotCommand } from '../../utils/helpers';
 
 createBotCommand({
@@ -19,7 +20,7 @@ createBotCommand({
 			iconURL: 'https://i.imgur.com/xUoqBGf.png',
 		});
 		embed.setThumbnail('https://i.imgur.com/gVsqGsA.gif');
-		embed.setColor('#76d6ff');
+		embed.setColor(default_color);
 		embed.addField('Total Bubbles Popped:', `**${user?.bubble_pop}**`);
 
 		embed.setDescription("You've popped a bubble!");

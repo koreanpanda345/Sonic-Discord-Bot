@@ -1,4 +1,5 @@
 import { MessageEmbed } from 'discord.js';
+import { sonic_icon } from '../../constants/variables';
 import { createBotCommand } from '../../utils/helpers';
 
 createBotCommand({
@@ -39,7 +40,7 @@ createBotCommand({
 		embed.setColor('#76d6ff');
 		embed.setAuthor({
 			name: '8 Ball 🎱',
-			iconURL: 'https://i.imgur.com/xUoqBGf.png',
+			iconURL: sonic_icon,
 		});
 
 		message.reply({ embeds: [embed] });

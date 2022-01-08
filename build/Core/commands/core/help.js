@@ -16,6 +16,7 @@ const discord_js_1 = require("discord.js");
 const CommandGroupSchema_1 = __importDefault(require("../../../Data/schemas/CommandGroupSchema"));
 const CommandSchema_1 = __importDefault(require("../../../Data/schemas/CommandSchema"));
 const instances_1 = require("../../constants/instances");
+const variables_1 = require("../../constants/variables");
 const helpers_1 = require("../../utils/helpers");
 (0, helpers_1.createBotCommand)({
     name: 'help',
@@ -65,7 +66,7 @@ const helpers_1 = require("../../utils/helpers");
             embed.setTitle('Oh this is awkward....');
             embed.setDescription(`There doesn't seem to be a command group called ${options}. Maybe you misspelt it, or something.\n` +
                 `But since you are here, watch me beat this game.`);
-            embed.setImage('https://storage.googleapis.com/gweb-uniblog-publish-prod/original_images/Dino_non-birthday_version.gif');
+            embed.setImage(variables_1.error_404_image);
         }
         message.channel.send({ embeds: [embed] });
     }),

@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const discord_js_1 = require("discord.js");
+const variables_1 = require("../../constants/variables");
 const helpers_1 = require("../../utils/helpers");
 (0, helpers_1.createBotCommand)({
     name: '8ball',
@@ -46,7 +47,7 @@ const helpers_1 = require("../../utils/helpers");
         embed.setColor('#76d6ff');
         embed.setAuthor({
             name: '8 Ball 🎱',
-            iconURL: 'https://i.imgur.com/xUoqBGf.png',
+            iconURL: variables_1.sonic_icon,
         });
         message.reply({ embeds: [embed] });
     }),
